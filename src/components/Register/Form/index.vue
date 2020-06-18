@@ -153,7 +153,7 @@ export default {
       const { nickname, password, phone, captcha } = this;
       const values = { nickname, password, phone, captcha };
 
-      const [err, { code }] = await tools.asyncFunc(
+      const [err, result] = await tools.asyncFunc(
         () => userCaptchaVerify(values)
       )
 
@@ -165,6 +165,8 @@ export default {
         });
         return;
       }
+
+
 
       const [err1, { code: code1, msg }] = await tools.asyncFunc(
         () => userRegister(values)
@@ -188,7 +190,7 @@ export default {
     async onCaptchaSend (phone) {
       this.isCaptchaLoading = true;
 
-      const [err, { code, msg }] = await tools.asyncFunc(
+      const [err, result] = await tools.asyncFunc(
         () => userCaptchaSend(phone)
       )
 
@@ -196,6 +198,8 @@ export default {
         this.$toast.fail(SERVER_ERROR)
         return;
       }
+
+      const { code, msg } = result;
 
       if (code === 200) {
         this.$toast({

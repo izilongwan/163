@@ -133,7 +133,7 @@ export default {
 
       const { $toast } = this;
 
-      const [err, { success }] = await tools.asyncFunc(
+      const [err, result] = await tools.asyncFunc(
         () => songCheckUrl(id)
       );
 
@@ -142,7 +142,7 @@ export default {
         return;
       }
 
-      if (!success) {
+      if (!result.success) {
         $toast.fail(message);
         return;
       }
@@ -210,7 +210,7 @@ export default {
       const { name, id, picUrl, player } = music;
       const obj = { name, id, picUrl, player };
 
-      const [err, { code, data }] = await tools.asyncFunc(
+      const [err, result] = await tools.asyncFunc(
         () => musicCollectionAdd(type, obj)
       )
 
@@ -218,6 +218,13 @@ export default {
         this.$toast.fail(SERVER_ERROR);
         return;
       }
+
+      if (err) {
+        this.$toast.fail(SERVER_ERROR);
+        return;
+      }
+
+      const { code, data } = result;
 
       code === 0 && this.SetMusicList(data);
     },
@@ -249,7 +256,7 @@ export default {
       const conf = { message };
 
       if (id === 0 || this.isCollected(type, id)) {
-        const [err, { code, data }] = await tools.asyncFunc(
+        const [err, result] = await tools.asyncFunc(
           () => musicCollectionRemove(type, id)
         )
 
@@ -257,6 +264,13 @@ export default {
           this.$toast.fail(SERVER_ERROR);
           return;
         }
+
+        if (err) {
+          this.$toast.fail(SERVER_ERROR);
+          return;
+        }
+
+        const { code, token } = result;
 
         code === 0 && this.SetMusicList(data);
 
@@ -287,7 +301,7 @@ export default {
             }
             : { id, name, picUrl, player };
 
-        const [err, { code, data }] = await tools.asyncFunc(
+        const [err, result] = await tools.asyncFunc(
           () => musicCollectionAdd(type, obj)
         )
 
@@ -295,6 +309,8 @@ export default {
           this.$toast.fail(SERVER_ERROR);
           return;
         }
+
+        const { code, data } = result;
 
         code === 0 && this.SetMusicList(data);
         conf.message = TOAST_COLLECTION;

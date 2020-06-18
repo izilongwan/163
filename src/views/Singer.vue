@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import SingerComHeader from 'components/Sub/ComHeader'
-import SingerContent from 'components/Singer/Content'
+import SingerComHeader from 'components/Sub/ComHeader';
+import SingerContent from 'components/Singer/Content';
 
 export default {
   name: 'Singer',
@@ -15,5 +15,5 @@ export default {
     SingerComHeader,
     SingerContent
   }
-}
+};
 </script>

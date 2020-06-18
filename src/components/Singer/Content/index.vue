@@ -60,12 +60,14 @@ export default {
     async getData () {
       this.isLoadingShow = true;
 
-      const [err, { artists }] = await tools.asyncFunc(singerListGet)
+      const [err, result] = await tools.asyncFunc(singerListGet)
 
       if (err) {
         this.$toast.fail(SERVER_ERROR);
         return;
       }
+
+      const { artists } = result;
 
       this.formatData(artists);
       this.isLoadingShow = false;

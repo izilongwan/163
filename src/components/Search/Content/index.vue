@@ -43,12 +43,14 @@ export default {
 
   methods: {
     async getSearchHot () {
-      const [err, { result: { hots } }] = await tools.asyncFunc(searchHotGet);
+      const [err, result] = await tools.asyncFunc(searchHotGet);
 
       if (err) {
         this.$toast.fail(SERVER_ERROR);
         return;
       }
+
+      const { result: { hots } } = result;
 
       this.hots = hots;
       this.isLoadingShow = false;

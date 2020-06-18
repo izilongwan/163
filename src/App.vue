@@ -73,13 +73,15 @@ export default {
         if (user) {
           await this.SetUser(user);
 
-          const [err, { code, data }] = await tools.asyncFunc(musicCollectionGet);
+          const [err, result] = await tools.asyncFunc(musicCollectionGet);
 
           if (err) {
             localStorage.removeItem(TOKEN_NAME);
             this.$toast.fail(SERVER_ERROR);
             return;
           }
+
+          const { code, data } = result;
 
           code === 0 && this.SetMusicList(data);
         }

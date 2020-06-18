@@ -99,9 +99,16 @@ export default {
     async onSubmit (values) {
       this.isLoading = true;
 
-      const [err, { msg, code, token }] = await tools.asyncFunc(
+      const [err, result] = await tools.asyncFunc(
         () => userLogin(values)
       )
+
+      if (err) {
+        this.$toast.fail(SERVER_ERROR);
+        return;
+      }
+
+      const { msg, code, token } = result;
 
       this.getData(token);
       localStorage.setItem(TOKEN_NAME, token);
@@ -121,22 +128,30 @@ export default {
       if (user) {
         await this.SetUser(user);
 
-        const [err, { msg, code, data }] = await tools.asyncFunc(musicCollectionGet);
+        const [err, result] = await tools.asyncFunc(musicCollectionGet);
 
         if (err) {
           this.$toast.fail(SERVER_ERROR);
           return;
         }
 
+        if (err) {
+          this.$toast.fail(SERVER_ERROR);
+          return;
+        }
+
+        const { msg, code, data } = result;
+
         code === 0 && this.SetMusicList(data);
       }
+    },
+
+    resetForm () {
+      this.phone = '';
+      this.password = '';
+      this.$refs.form.resetValidation();
     }
   },
 
-  resetForm () {
-    this.phone = '';
-    this.password = '';
-    this.$refs.form.resetValidation();
-  }
 }
 </script>

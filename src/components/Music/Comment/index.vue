@@ -124,7 +124,7 @@ export default {
     async getData ({ type, id, current }) {
       switch (type) {
         case 'song':
-          const [err, { hotComments, total, comments }] = await tools.asyncFunc(
+          const [err, result] = await tools.asyncFunc(
             () => songMusicComment({ id, offset: current })
           );
 
@@ -132,6 +132,9 @@ export default {
             this.$toast.fail(SERVER_ERROR);
             return;
           }
+
+
+          const { hotComments, total, comments } = result;
 
           this.setCommentCache({ hotComments, total, comments });
           break;

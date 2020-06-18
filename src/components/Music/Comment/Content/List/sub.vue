@@ -97,7 +97,7 @@ export default {
     .content {
       margin: 2rem 0;
       text-indent: 2rem;
-      line-height: 1.8rem;
+      line-height: 2rem;
     }
 
     .time {

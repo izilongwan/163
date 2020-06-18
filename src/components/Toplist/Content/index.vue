@@ -2,10 +2,13 @@
   <Scroll class="top-hd bt-5">
     <ToplistTitle title="官方榜" />
     <ToplistInfoList type="play" :list="list.slice(0, 4)" />
+
     <ToplistTitle title="推荐榜" />
     <ToplistComList type="play" :list="list.slice(4, 10)" />
+
     <ToplistTitle title="全球榜" />
     <ToplistComList type="play" :list="list.slice(10, 16)" />
+
     <ToplistTitle title="更多榜" />
     <ToplistComList type="play" :list="list.slice(16)" />
   </Scroll>
@@ -31,4 +34,3 @@ export default {
   }
 }
 </script>
-
