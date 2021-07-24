@@ -1,5 +1,5 @@
 const USER_API = 'http://39.98.76.151:5001/api/';
-const MUSIC_API = 'http://39.98.76.151:5002/';
+const MUSIC_API = 'https://netease-cloud-music-api-rho-ten.vercel.app/';
 
 export default {
   RECOMM_BANENR_GET: MUSIC_API + 'banner?type=1',
@@ -19,9 +19,13 @@ export default {
   SEARCH_KEYWORDS: MUSIC_API + 'search',
   USER_CAPTCHA_SEND: MUSIC_API + 'captcha/sent',
   USER_CAPTCHA_VERIFY: MUSIC_API + 'captcha/verify',
-  USER_LOGIN: USER_API + 'user/login',
-  USER_REGISTER: USER_API + 'user/register',
-  MUSIC_COLLECTION_GET: USER_API + 'collection/get',
-  MUSIC_COLLECTION_ADD: USER_API + 'collection/add',
-  MUSIC_COLLECTION_REMOVE: USER_API + 'collection/remove'
+  USER_LOGIN: MUSIC_API + 'login/cellphone',
+  USER_REGISTER: MUSIC_API + 'user/register',
+  // MUSIC_RECOMMED_RESOURCE: MUSIC_API + 'recommend/resource', // 私人音乐
+  // MUSIC_COLLECTION_GET: MUSIC_API + 'user/subcount',
+  // MUSIC_COLLECTION_GET: MUSIC_API + '/user/record?uid=1410403774&type=0',
+  MUSIC_COLLECTION_GET: MUSIC_API + 'topic/sublist',
+  MUSIC_PLAYLIST_SUBSCRIBE: MUSIC_API + 'playlist/subscribe',
+  MUSIC_PLAYLIST_SUBSCRIBERS: MUSIC_API + 'playlist/subscribers',
+  MUSIC_COLLECTION_REMOVE: MUSIC_API + 'collection/remove'
 }

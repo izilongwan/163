@@ -30,8 +30,8 @@ export default {
 
   mounted () {
     this.checkToken();
-    document.documentElement.addEventListener('click', this.onClick, false);
-    document.documentElement.addEventListener('touchend', this.onTouchEnd, false);
+    // document.documentElement.addEventListener('click', this.onClick, false);
+    // document.documentElement.addEventListener('touchend', this.onTouchEnd, false);
   },
 
   computed: {
@@ -68,22 +68,22 @@ export default {
       const token = localStorage.getItem(TOKEN_NAME);
 
       if (token) {
-        const user = tools.decodeToken(token);
+        const user = JSON.parse(token);
 
         if (user) {
           await this.SetUser(user);
 
-          const [err, result] = await tools.asyncFunc(musicCollectionGet);
+          // const [err, result] = await tools.asyncFunc(musicCollectionGet);
 
-          if (err) {
-            localStorage.removeItem(TOKEN_NAME);
-            this.$toast.fail(SERVER_ERROR);
-            return;
-          }
+          // if (err) {
+          //   // localStorage.removeItem(TOKEN_NAME);
+          //   this.$toast.fail(SERVER_ERROR);
+          //   return;
+          // }
 
-          const { code, data } = result;
+          // const { code, data } = result;
 
-          code === 0 && this.SetMusicList(data);
+          // code === 0 && this.SetMusicList(data);
         }
       }
     }

@@ -124,12 +124,12 @@ const router = new VueRouter({
 
 router.beforeEach(({ name }, from, next) => {
   const token = localStorage.getItem(TOKEN_NAME);
-  const permission = tools.decodeToken(token);
+  // const permission = tools.decodeToken(token);
 
   switch (name) {
     case 'collection':
     case 'account':
-      permission && next();
+      next();
       break;
 
     default:

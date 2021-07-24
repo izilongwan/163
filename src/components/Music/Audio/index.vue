@@ -20,7 +20,7 @@ import {
   SERVER_ERROR
 } from '@/config';
 import { songGet, songCheckUrl } from 'api/music';
-import { musicCollectionAdd, musicCollectionRemove } from 'api/collection';
+import { musicPlaylistSubscribe } from 'api/collection';
 import { mapState, mapActions } from 'vuex';
 import tools from 'utils/tools';
 
@@ -70,6 +70,11 @@ export default {
 
     onTimeupdate: tools._throttle(function () {
       const { $bus, $refs } = this;
+
+      if (!$refs.oAudio) {
+        return;
+      }
+
       const { currentTime, duration } = $refs.oAudio;
 
       const curTime = tools.formatTime(currentTime);
@@ -92,7 +97,7 @@ export default {
     setMusicState (state) {
       const { oAudio } = this.$refs;
 
-      if (oAudio.duration) {
+      if (oAudio && oAudio.duration) {
         this.SetIsPlaying(state);
         state ? oAudio.play() : oAudio.pause();
       }
@@ -192,7 +197,7 @@ export default {
       this.SetIsPlaying(true);
       this.SetMusicList({ playings });
       this.SetArtist(artist);
-      this.setAddData(music, type);
+      // this.setAddData(music, type);
       type === 'historys' && this.setAddData(music, 'recents');
     },
 
@@ -200,7 +205,7 @@ export default {
       this.setData(music);
     },
 
-    async setAddData (music, type) {
+    async setAddData (music) {
       const { user } = this;
 
       if (!user) {
@@ -211,7 +216,7 @@ export default {
       const obj = { name, id, picUrl, player };
 
       const [err, result] = await tools.asyncFunc(
-        () => musicCollectionAdd(type, obj)
+        () => musicPlaylistSubscribe(1, id)
       )
 
       if (err) {
@@ -257,7 +262,7 @@ export default {
 
       if (id === 0 || this.isCollected(type, id)) {
         const [err, result] = await tools.asyncFunc(
-          () => musicCollectionRemove(type, id)
+          () => musicPlaylistSubscribe(0, id)
         )
 
         if (err) {
@@ -302,7 +307,7 @@ export default {
             : { id, name, picUrl, player };
 
         const [err, result] = await tools.asyncFunc(
-          () => musicCollectionAdd(type, obj)
+          () => musicPlaylistSubscribe(1, id)
         )
 
         if (err) {

@@ -1,5 +1,5 @@
 <template>
-  <Scroll class="bt-5" :scrollAction="scrollAction">
+  <Scroll class="bt-5" :isScrollToTop="true" :scrollAction="scrollAction">
     <ListBanner :banner="data.banner" />
 
     <ListFunc :list="data.list" :banner="data.banner" />

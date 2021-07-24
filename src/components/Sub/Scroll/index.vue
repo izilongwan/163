@@ -14,7 +14,8 @@ export default {
   name: 'Scroll',
 
   props: {
-    scrollAction: Function
+    scrollAction: Function,
+    isScrollToTop: Boolean,
   },
 
   mounted () {
@@ -37,7 +38,7 @@ export default {
   },
 
   deactivated () {
-    this.scroll.scrollTo(0, 0);
+    this.isScrollToTop && this.scroll.scrollTo(0, 0);
   }
 };
 </script>

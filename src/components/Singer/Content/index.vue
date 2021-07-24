@@ -53,7 +53,7 @@ export default {
   },
 
   deactivated () {
-    this.scrollToTop();
+
   },
 
   methods: {

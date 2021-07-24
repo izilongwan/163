@@ -1,8 +1,8 @@
 <template>
   <van-nav-bar
     left-text="注册"
-    @click-left="() => $router.push('register')"
   />
+  <!-- @click-left="() => $router.push('register')" -->
 </template>
 
 <script>

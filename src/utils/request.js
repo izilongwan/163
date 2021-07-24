@@ -3,7 +3,8 @@ import { Toast } from 'vant';
 import axios from 'axios'
 
 const service = axios.create({
-  timeout: 6 * 1000
+  timeout: 6 * 1000,
+  withCredentials: true
 })
 
 service.interceptors.request.use(
@@ -11,7 +12,6 @@ service.interceptors.request.use(
     return config;
   },
   err => {
-    Toast.fail(NET_REQUEST_ERR);
     Promise.reject(err);
   }
 )

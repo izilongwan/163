@@ -108,25 +108,23 @@ export default {
         return;
       }
 
-      const { msg, code, token } = result;
+      const { code, profile, msg } = result;
 
-      this.getData(token);
-      localStorage.setItem(TOKEN_NAME, token);
-      code === 0 && this.$router.push('recom');
+      this.getData(profile);
+      profile && localStorage.setItem(TOKEN_NAME, JSON.stringify(profile));
+      code === 200 && this.$router.push('recom');
 
       this.$toast({
-        message: msg,
+        message: msg || 'success',
         position: 'top'
       })
 
       this.isLoading = false;
     },
 
-    async getData (token) {
-      const user = tools.decodeToken(token);
-
-      if (user) {
-        await this.SetUser(user);
+    async getData (profile) {
+      if (profile) {
+        await this.SetUser(profile);
 
         const [err, result] = await tools.asyncFunc(musicCollectionGet);
 

@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <SingerComHeader title="歌手" />
+    <SingerComHeader style="height: 4.6rem" title="歌手" />
     <SingerContent />
   </div>
 </template>

@@ -8,20 +8,13 @@ export const musicCollectionGet = () =>
   request({
     url: API.MUSIC_COLLECTION_GET,
     method: 'get',
-    headers: { Authorization: getToken() }
+    // headers: { Authorization: getToken() }
   });
 
-export const musicCollectionAdd = (type, data) =>
+export const musicPlaylistSubscribe = (t, id) =>
   request({
-    url: `${ API.MUSIC_COLLECTION_ADD }/${ type }`,
+    url: `${ API.MUSIC_PLAYLIST_SUBSCRIBE }?t=${t}&id=${id}`,
     method: 'post',
-    headers: { Authorization: getToken() },
-    data: qs.stringify(data)
-  });
-
-export const musicCollectionRemove = (type, id) =>
-  request({
-    url: `${ API.MUSIC_COLLECTION_REMOVE }/${ type }/${ id }`,
-    method: 'delete',
-    headers: { Authorization: getToken() }
+    // headers: { Authorization: getToken() },
+    // data: qs.stringify(data)
   });
