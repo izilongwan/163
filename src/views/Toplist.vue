@@ -7,14 +7,15 @@
       v-if="!isLoadingShow && list.length"
     />
 
-    <Loading v-else />
+
+    <Skeleton v-else />
   </div>
 </template>
 
 <script>
+import Skeleton from 'components/Skeleton/SkeletonTopList'
 import ToplistComHeader from 'components/Sub/ComHeader';
 import ToplistContent from 'components/Toplist/Content';
-import Loading from 'components/Sub/Loading';
 import { toplistDetailGet } from 'api/toplist';
 import { SERVER_ERROR } from '@/config';
 import tools from '@/utils/tools';
@@ -24,7 +25,7 @@ export default {
   components: {
     ToplistComHeader,
     ToplistContent,
-    Loading
+    Skeleton
   },
 
   data () {

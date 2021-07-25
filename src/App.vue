@@ -30,8 +30,7 @@ export default {
 
   mounted () {
     this.checkToken();
-    // document.documentElement.addEventListener('click', this.onClick, false);
-    // document.documentElement.addEventListener('touchend', this.onTouchEnd, false);
+    document.documentElement.addEventListener('touchend', this.onTouchEnd, false);
   },
 
   computed: {
@@ -41,11 +40,6 @@ export default {
   methods: {
     ...mapActions('user', ['SetUser']),
     ...mapActions('music', ['SetMusicList']),
-
-    onClick () {
-      document.getElementById('J_audio').play();
-      document.documentElement.removeEventListener('click', this.onClick, false);
-    },
 
     onTouchEnd (e) {
       clearTimeout(this.t);
@@ -60,7 +54,7 @@ export default {
           return;
         }
 
-        this.t = setTimeout(() => id && oAudio.play(), 500);
+        this.t = setTimeout(() => id && oAudio.play());
       })
     },
 

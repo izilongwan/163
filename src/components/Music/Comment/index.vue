@@ -6,7 +6,10 @@
   >
     <CommentHeader :show.sync="show" :total="total" />
 
+    <Skeleton v-if="isSkeletonShow" />
+
     <CommentContent
+      v-else
       :hotComments="hotComments"
       :comments="comments"
       @handleCommentPage="++current"
@@ -19,6 +22,7 @@
 <script>
 import CommentHeader from './Header';
 import CommentContent from 'components/Music/Comment/Content';
+import Skeleton from 'components/Skeleton/SkeletonComment'
 import Loading from 'components/Sub/Loading';
 import { songMusicComment } from 'api/music';
 import tools from 'utils/tools';
@@ -29,12 +33,15 @@ export default {
   components: {
     CommentHeader,
     CommentContent,
-    Loading
+    Loading,
+    Skeleton
   },
 
   data () {
     return {
+      t: null,
       show: false,
+      isSkeletonShow: true,
       isLoading: true,
       field: '',
       cache: {},
@@ -80,13 +87,19 @@ export default {
     },
 
     resetComment () {
-      this.pages = 1;
-      this.current = 0;
-      this.total = 0;
-      this.field = '';
-      this.comments = [];
-      this.hotComments = [];
-      this.isLoading = true;
+      clearTimeout(this.t);
+
+      this.t = setTimeout(() => {
+        this.pages = 1;
+        this.current = 0;
+        this.total = 0;
+        this.field = '';
+        this.comments = [];
+        this.hotComments = [];
+        this.isLoading = true;
+        this.isSkeletonShow = true;
+      }, 500)
+
       this.$bus.$emit('handleCommentFinished', false);
     },
 
@@ -145,6 +158,7 @@ export default {
       }
 
       this.isLoading = false;
+      this.isSkeletonShow = false;
       this.$bus.$emit('handleCommentLoading', false);
     },
 
@@ -179,6 +193,7 @@ export default {
       pages && (this.pages = pages);
       this.$bus.$emit('handleCommentLoading', false);
       this.isLoading = false;
+      this.isSkeletonShow = false;
     }
   }
 };

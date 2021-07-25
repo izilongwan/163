@@ -1,6 +1,6 @@
 <template>
   <div class="list-wrap" ref="scroll">
-    <ul class="list" v-if="lyric">
+    <ul class="list" v-if="lyric && !isLoadingShow">
       <li
         class="item"
         :class="{ cur: idx === curIdx }"
@@ -10,17 +10,24 @@
       >{{ value }}</li>
     </ul>
 
+    <Skeleton v-else-if="isLoadingShow" />
+
     <p v-else class="tip">- 暂无歌词 -</p>
   </div>
 </template>
 
 <script>
-import tools from 'utils/tools'
+import Skeleton from 'components/Skeleton/SkeletonDetailMidLyric'
 
 export default {
   name: 'MidLyric',
   props: {
-    lyric: [Array, String]
+    lyric: [Array, String],
+    isLoadingShow: Boolean,
+  },
+
+  components: {
+    Skeleton
   },
 
   data () {
@@ -45,6 +52,10 @@ export default {
       lyric.some(([key], idx) => {
         if (key > time) {
           this.curIdx = idx - 1 < 0 ? 0 : idx - 1;
+
+          if (!refItem[idx]) {
+            return;
+          }
 
           const { offsetTop } = refItem[idx];
 
@@ -93,7 +104,7 @@ export default {
     text-align: center;
     color: #666;
     font-size: 1.8rem;
-    line-height: 40rem;
+    line-height: 30rem;
   }
 }
 </style>

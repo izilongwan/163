@@ -31,7 +31,7 @@ export const songDetailGet = (ids) =>
   });
 
 export const songGet = (id) =>
-  axios.all([songDetailGet(id), songUrlGet(id), songLyricGet(id)]);
+  axios.all([songDetailGet(id), songUrlGet(id)]);
 
 export const songMusicComment = ({ id, offset }) =>
   request({

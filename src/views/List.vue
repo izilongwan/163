@@ -12,14 +12,14 @@
       :data="data"
     />
 
-    <Loading v-else />
+    <Skeleton v-else />
   </div>
 </template>
 
 <script>
 import ListHeader from 'components/Sub/ComHeader'
 import ListContent from 'components/List/Content'
-import Loading from 'components/Sub/Loading'
+import Skeleton from 'components/Skeleton/SkeletonListPlay'
 import { playlistDetailGet } from 'api/playlist'
 import { singerListDetailGet } from 'api/singer'
 import { SERVER_ERROR } from '@/config'
@@ -36,7 +36,7 @@ export default {
   components: {
     ListHeader,
     ListContent,
-    Loading
+    Skeleton
   },
 
   data () {

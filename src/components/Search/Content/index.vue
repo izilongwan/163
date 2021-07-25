@@ -1,23 +1,25 @@
 <template>
   <div class="history-wrap">
     <SearchResult />
+
     <Scroll class="top-hd bg bt-5" v-if="!isLoadingShow">
       <SearchHot :hots="hots" />
 
       <SearchHistory />
     </Scroll>
-    <Loading v-else />
+
+    <Skeleton v-else />
   </div>
 </template>
 
 <script>
 import tools from 'utils/tools';
 import Scroll from 'components/Sub/Scroll'
-import Loading from 'components/Sub/Loading'
 import SearchHot from './Hot';
 import SearchResult from './Result';
 import SearchHistory from './History';
 import { searchHotGet, searchKeywordsGet } from 'api/search'
+import Skeleton from 'components/Skeleton/SkeletonSearchHot'
 import { SERVER_ERROR } from '@/config'
 
 export default {
@@ -27,7 +29,7 @@ export default {
     SearchHot,
     SearchResult,
     SearchHistory,
-    Loading
+    Skeleton
   },
 
   data () {

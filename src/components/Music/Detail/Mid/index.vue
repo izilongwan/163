@@ -6,7 +6,8 @@
       <Lyric
         key="lyric"
         v-show="lyricShow"
-        :lyric="music.lyric"
+        :lyric="lyric"
+        :is-loading-show="isLoadingShow"
       />
     </transition-group>
   </div>
@@ -15,6 +16,8 @@
 <script>
 import Pic from './Pic'
 import Lyric from './Lyric'
+import { songLyricGet } from 'api/music'
+import tools from 'utils/tools'
 
 export default {
   name: 'DetailMid',
@@ -29,8 +32,47 @@ export default {
 
   data () {
     return {
-      lyricShow: true
+      lyricShow: false,
+      prevId: 0,
+      lyric: '',
+      isLoadingShow: false,
     }
+  },
+
+  methods: {
+    async handleMusicLyric () {
+
+      if (this.lyricShow) {
+        const id = this.music.id;
+
+        this.isLoadingShow = true;
+
+        if (id && id !== this.prevId) {
+          const [err, ret] = await tools.asyncFunc(
+            () => songLyricGet(id)
+          );
+
+          this.isLoadingShow = false;
+
+          if (err) {
+            return;
+          }
+
+          const { nolyric, lrc = {} } = ret;
+
+          this.prevId = id;
+          this.lyric = nolyric ? '' : tools.formatLyric(lrc.lyric);
+        }
+        return;
+      }
+
+      this.lyric =  '';
+    }
+  },
+
+  watch: {
+    lyricShow: 'handleMusicLyric',
+    'music.id': 'handleMusicLyric'
   }
 }
 </script>

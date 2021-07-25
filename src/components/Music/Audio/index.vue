@@ -138,12 +138,14 @@ export default {
 
       const { $toast } = this;
 
-      const [err, result] = await tools.asyncFunc(
+      const [err, result = {}] = await tools.asyncFunc(
         () => songCheckUrl(id)
       );
 
+      let msg = result.message || SERVER_ERROR;
+
       if (err) {
-        this.$toast.fail(SERVER_ERROR);
+        this.$toast.fail(msg);
         return;
       }
 
@@ -162,9 +164,6 @@ export default {
           data: {
             data: [{ url }]
           }
-        },
-        {
-          data: { nolyric, lrc }
         }
       ] = await songGet(id);
 
@@ -178,8 +177,7 @@ export default {
         url,
         name: songs.name,
         player: songs.ar.map(({ name }) => name).join('、'),
-        picUrl: songs.al.picUrl,
-        lyric: nolyric ? '' : tools.formatLyric(lrc.lyric)
+        picUrl: songs.al.picUrl
       };
 
       this.setCache({ music, id });
@@ -198,7 +196,7 @@ export default {
       this.SetMusicList({ playings });
       this.SetArtist(artist);
       // this.setAddData(music, type);
-      type === 'historys' && this.setAddData(music, 'recents');
+      // type === 'historys' && this.setAddData(music, 'recents');
     },
 
     getCache (music) {
@@ -218,11 +216,6 @@ export default {
       const [err, result] = await tools.asyncFunc(
         () => musicPlaylistSubscribe(1, id)
       )
-
-      if (err) {
-        this.$toast.fail(SERVER_ERROR);
-        return;
-      }
 
       if (err) {
         this.$toast.fail(SERVER_ERROR);
@@ -264,11 +257,6 @@ export default {
         const [err, result] = await tools.asyncFunc(
           () => musicPlaylistSubscribe(0, id)
         )
-
-        if (err) {
-          this.$toast.fail(SERVER_ERROR);
-          return;
-        }
 
         if (err) {
           this.$toast.fail(SERVER_ERROR);

@@ -26,7 +26,7 @@ export default {
     Scroll,
     ToplistTitle,
     ToplistInfoList,
-    ToplistComList
+    ToplistComList,
   },
 
   props: {

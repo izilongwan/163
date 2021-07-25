@@ -2,7 +2,7 @@
   <div class="mini">
     <span class="bar" :style="{width: `${percentage}%`}"></span>
 
-    <MiniInfo :music="music" />
+    <MiniInfo :music="music" :is_playing="is_playing" />
 
     <MiniControl :url="music.url" :is_playing="is_playing" />
   </div>

@@ -4,7 +4,7 @@
     v-if="isResultShow"
     @click="onResultClick"
   >
-    <Loading v-if="isLoadingShow" />
+    <Skeleton v-if="isLoadingShow" />
 
     <SongList
       :list="songs"
@@ -18,8 +18,8 @@
 
 <script>
 import SongList from 'components/Sub/SongList';
-import Loading from 'components/Sub/Loading';
 import NoDataTip from 'components/Sub/NoDataTip';
+import Skeleton from 'components/Skeleton/SkeletonSearchResult'
 import { searchKeywordsGet } from 'api/search';
 import { SERVER_ERROR } from '@/config'
 import tools from 'utils/tools'
@@ -28,7 +28,7 @@ export default {
   name: 'SearchReult',
   components: {
     SongList,
-    Loading,
+    Skeleton,
     NoDataTip
   },
 

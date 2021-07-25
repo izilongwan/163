@@ -19,15 +19,15 @@
       </template>
     </van-index-bar>
 
-    <Loading v-else />
+    <Skeleton v-else />
   </div>
 </template>
 
 <script>
 import Sub from './Sub'
 import Scroll from 'components/Sub/Scroll'
+import Skeleton from 'components/Skeleton/SkeletonSinger'
 import jspy from 'js-pinyin'
-import Loading from 'components/Sub/Loading'
 import { singerListGet } from 'api/singer'
 import { SERVER_ERROR } from '@/config'
 import tools from 'utils/tools'
@@ -37,7 +37,7 @@ export default {
   components: {
     Scroll,
     Sub,
-    Loading
+    Skeleton
   },
 
   data () {

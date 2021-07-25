@@ -7,15 +7,15 @@
     <RecomContent :list="list" :newsong="newsong" />
   </Scroll>
 
-  <Loading v-else />
+  <Skeleton v-else />
 </template>
 
 <script>
 import Scroll from 'components/Sub/Scroll'
+import Skeleton from 'components/Skeleton/SkeletonHome'
 import RecomBanner from 'components/Home/Recom/Banner';
 import RecomField from 'components/Home/Recom/Field'
 import RecomContent from 'components/Home/Recom/Content'
-import Loading from 'components/Sub/Loading'
 import { recomGet } from 'api/recom';
 
 export default {
@@ -26,7 +26,7 @@ export default {
     RecomBanner,
     RecomField,
     RecomContent,
-    Loading
+    Skeleton
   },
 
   data () {
