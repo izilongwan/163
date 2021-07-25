@@ -48,7 +48,6 @@ export default {
       );
 
       if (err) {
-        this.$toast.fail(SERVER_ERROR);
         return;
       }
 

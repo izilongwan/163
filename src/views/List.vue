@@ -87,7 +87,6 @@ export default {
           )
 
           if (err) {
-            this.$toast.fail(SERVER_ERROR);
             return;
           }
 
@@ -101,7 +100,6 @@ export default {
           )
 
           if (err1) {
-            this.$toast.fail(SERVER_ERROR);
             return;
           }
 

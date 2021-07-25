@@ -2,6 +2,8 @@ import { NET_REQUEST_ERR, TOKEN_NAME } from '@/config';
 import { Toast } from 'vant';
 import axios from 'axios'
 
+let t = null;
+
 const service = axios.create({
   timeout: 6 * 1000,
   withCredentials: true
@@ -27,8 +29,12 @@ service.interceptors.response.use(
       localStorage.removeItem(TOKEN_NAME);
     }
 
-    Toast.fail(NET_REQUEST_ERR);
-    Promise.reject(err);
+    let msg = err.response.data.message || NET_REQUEST_ERR;
+
+    t = setTimeout(() => Toast.fail(msg),10);
+
+
+    Promise.reject(err.response.data);
   }
 )
 

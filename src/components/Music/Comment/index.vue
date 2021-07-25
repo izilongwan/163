@@ -142,10 +142,8 @@ export default {
           );
 
           if (err) {
-            this.$toast.fail(SERVER_ERROR);
             return;
           }
-
 
           const { hotComments, total, comments } = result;
 

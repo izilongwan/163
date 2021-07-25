@@ -63,7 +63,6 @@ export default {
       const [err, result] = await tools.asyncFunc(singerListGet)
 
       if (err) {
-        this.$toast.fail(SERVER_ERROR);
         return;
       }
 

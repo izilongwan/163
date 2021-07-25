@@ -142,15 +142,12 @@ export default {
         () => songCheckUrl(id)
       );
 
-      let msg = result.message || SERVER_ERROR;
 
       if (err) {
-        this.$toast.fail(msg);
         return;
       }
 
       if (!result.success) {
-        $toast.fail(message);
         return;
       }
 
@@ -168,7 +165,6 @@ export default {
       ] = await songGet(id);
 
       if (!url) {
-        $toast.fail(TOAST_SONG_VIP);
         return;
       }
 
@@ -299,7 +295,6 @@ export default {
         )
 
         if (err) {
-          this.$toast.fail(SERVER_ERROR);
           return;
         }
 

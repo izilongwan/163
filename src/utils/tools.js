@@ -3,9 +3,11 @@ import jwtDecode from 'jwt-decode';
 export default {
   async asyncFunc (fn) {
     try {
-      const { data } = await fn();
+      const ret = await fn();
 
-      return [null, data];
+      return ret
+        ? [null, ret.data]
+        : [ret];
 
     } catch (err) {
       return [err, null];

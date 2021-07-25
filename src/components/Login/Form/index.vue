@@ -129,12 +129,10 @@ export default {
         const [err, result] = await tools.asyncFunc(musicCollectionGet);
 
         if (err) {
-          this.$toast.fail(SERVER_ERROR);
           return;
         }
 
         if (err) {
-          this.$toast.fail(SERVER_ERROR);
           return;
         }
 
