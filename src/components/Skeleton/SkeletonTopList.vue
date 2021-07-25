@@ -2,7 +2,7 @@
   <div class="skeleton-wrap">
     <svg
       role="img"
-      width="400"
+      width="100%"
       height="600"
       aria-labelledby="loading-aria"
       viewBox="0 0 400 600"
