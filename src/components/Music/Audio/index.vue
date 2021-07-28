@@ -105,6 +105,11 @@ export default {
 
     setMusicProcess (percentage) {
       const { oAudio } = this.$refs;
+
+      if (!oAudio) {
+        return;
+      }
+
       const { duration } = oAudio;
 
       duration && (oAudio.currentTime = percentage * duration);
@@ -136,12 +141,7 @@ export default {
     async getData (id) {
       id = parseInt(id);
 
-      const { $toast } = this;
-
-      const [err, result = {}] = await tools.asyncFunc(
-        () => songCheckUrl(id)
-      );
-
+      const [err, result = {}] = await songCheckUrl(id);
 
       if (err) {
         return;
@@ -152,31 +152,34 @@ export default {
       }
 
       const [
-        {
-          data: {
-            songs: [songs]
-          }
-        },
-        {
-          data: {
-            data: [{ url }]
-          }
-        }
+        [err1, data1],
+        [err2, data2]
       ] = await songGet(id);
 
-      if (!url) {
-        return;
+      let songs = null;
+
+      if (!err1) {
+        const { songs: [_] } = data1;
+        songs = _;
       }
 
-      const music = {
-        id,
-        url,
-        name: songs.name,
-        player: songs.ar.map(({ name }) => name).join('、'),
-        picUrl: songs.al.picUrl
-      };
+      if (!err2) {
+        const { data: [{ url }] } = data2;
 
-      this.setCache({ music, id });
+        if (!url || !songs) {
+          return;
+        }
+
+        const music = {
+          id,
+          url,
+          name: songs.name,
+          player: songs.ar.map(({ name }) => name).join('、'),
+          picUrl: songs.al.picUrl
+        };
+
+        this.setCache({ music, id });
+      }
     },
 
     setCache ({ music, id }) {
@@ -209,9 +212,7 @@ export default {
       const { name, id, picUrl, player } = music;
       const obj = { name, id, picUrl, player };
 
-      const [err, result] = await tools.asyncFunc(
-        () => musicPlaylistSubscribe(1, id)
-      )
+      const [err, result] = await musicPlaylistSubscribe(1, id);
 
       if (err) {
         this.$toast.fail(SERVER_ERROR);
@@ -250,9 +251,7 @@ export default {
       const conf = { message };
 
       if (id === 0 || this.isCollected(type, id)) {
-        const [err, result] = await tools.asyncFunc(
-          () => musicPlaylistSubscribe(0, id)
-        )
+        const [err, result] = await musicPlaylistSubscribe(0, id);
 
         if (err) {
           this.$toast.fail(SERVER_ERROR);
@@ -290,9 +289,7 @@ export default {
             }
             : { id, name, picUrl, player };
 
-        const [err, result] = await tools.asyncFunc(
-          () => musicPlaylistSubscribe(1, id)
-        )
+        const [err, result] = await musicPlaylistSubscribe(1, id);
 
         if (err) {
           return;

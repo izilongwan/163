@@ -11,7 +11,7 @@
         :show.sync="show"
       />
 
-      <Mid :music="music" />
+      <Mid :music="music" :show="show" />
 
       <Bottom />
     </div>
@@ -24,7 +24,6 @@ import Top from './Top';
 import Mid from './Mid';
 import Bottom from './Bottom';
 import { mapState } from 'vuex';
-import tools from 'utils/tools';
 
 export default {
   name: 'MusicDetail',

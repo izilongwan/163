@@ -29,8 +29,6 @@ import Scroll from 'components/Sub/Scroll'
 import Skeleton from 'components/Skeleton/SkeletonSinger'
 import jspy from 'js-pinyin'
 import { singerListGet } from 'api/singer'
-import { SERVER_ERROR } from '@/config'
-import tools from 'utils/tools'
 
 export default {
   name: 'SingerContent',
@@ -60,7 +58,7 @@ export default {
     async getData () {
       this.isLoadingShow = true;
 
-      const [err, result] = await tools.asyncFunc(singerListGet)
+      const [err, result] = await singerListGet();
 
       if (err) {
         return;

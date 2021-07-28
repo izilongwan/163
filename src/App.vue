@@ -12,7 +12,6 @@
 
 <script>
 import Music from 'views/Music'
-import tools from 'utils/tools'
 import { TOKEN_NAME } from '@/config'
 import { musicCollectionGet } from 'api/collection'
 import { mapState, mapActions } from 'vuex'
@@ -67,11 +66,10 @@ export default {
         if (user) {
           await this.SetUser(user);
 
-          // const [err, result] = await tools.asyncFunc(musicCollectionGet);
+          // const [err, result] = await musicCollectionGet();
 
           // if (err) {
-          //   // localStorage.removeItem(TOKEN_NAME);
-          //   this.$toast.fail(SERVER_ERROR);
+          //   localStorage.removeItem(TOKEN_NAME);
           //   return;
           // }
 

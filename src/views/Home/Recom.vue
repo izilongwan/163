@@ -46,21 +46,32 @@ export default {
     async getDatas () {
       this.isLoadingShow = true;
 
-      const [
-        {
-          data: { banners }
-        },
-        {
-          data: { result: list }
-        },
-        {
-          data: { result: newsong }
-        }
-      ] = await recomGet();
+      const ret = await recomGet();
 
-      this.banners = banners;
-      this.list = list;
-      this.newsong = newsong;
+      if (!ret) {
+        return;
+      }
+
+      const [
+        [err1, data1],
+        [err2, data2],
+        [err3, data3],
+      ] = ret;
+
+      if (!err1 && data1) {
+        const { banners } = data1;
+        this.banners = banners;
+      }
+
+      if (!err2 && data2) {
+        const { result: list } = data2;
+        this.list = list;
+      }
+
+      if (!err3 && data3) {
+        const { result: newsong } = data3;
+        this.newsong = newsong;
+      }
 
       this.isLoadingShow = false;
     }

@@ -40,7 +40,6 @@
 <script>
 import { userLogin } from 'api/user'
 import { TOKEN_NAME, SERVER_ERROR } from '@/config'
-import tools from 'utils/tools'
 import { musicCollectionGet } from 'api/collection'
 import { mapState, mapActions } from 'vuex'
 
@@ -99,9 +98,7 @@ export default {
     async onSubmit (values) {
       this.isLoading = true;
 
-      const [err, result] = await tools.asyncFunc(
-        () => userLogin(values)
-      )
+      const [err, result] = await userLogin(values);
 
       if (err) {
         this.$toast.fail(SERVER_ERROR);
@@ -126,7 +123,7 @@ export default {
       if (profile) {
         await this.SetUser(profile);
 
-        const [err, result] = await tools.asyncFunc(musicCollectionGet);
+        const [err, result] = await musicCollectionGet();
 
         if (err) {
           return;

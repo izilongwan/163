@@ -4,7 +4,7 @@ const MUSIC_API = 'https://netease-cloud-music-api-rho-ten.vercel.app/';
 export default {
   RECOMM_BANENR_GET: MUSIC_API + 'banner?type=1',
   RECOMM_LIST_GET: MUSIC_API + 'personalized',
-  RECOMM_NEWSONG_GET: MUSIC_API + 'personalized/newsong',
+  RECOMM_NEWSONG_GET: MUSIC_API + 'personalized/newsongs',
   TOPLIST_GET: MUSIC_API + 'toplist',
   TOPLIST_DETAIL_GET: MUSIC_API + 'toplist/detail',
   ARTISTS_LIST_GET: MUSIC_API + 'top/artists',

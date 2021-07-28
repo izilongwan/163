@@ -22,7 +22,6 @@ import NoDataTip from 'components/Sub/NoDataTip';
 import Skeleton from 'components/Skeleton/SkeletonSearchResult'
 import { searchKeywordsGet } from 'api/search';
 import { SERVER_ERROR } from '@/config'
-import tools from 'utils/tools'
 
 export default {
   name: 'SearchReult',
@@ -62,9 +61,7 @@ export default {
         this.isResultShow = true;
         this.isLoadingShow = true;
 
-        const [err, data] = await tools.asyncFunc(
-          () => searchKeywordsGet(keywords)
-        )
+        const [err, data] = await searchKeywordsGet(keywords);
 
         if (err) {
           this.$toast.fail(SERVER_ERROR);

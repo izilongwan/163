@@ -1,6 +1,7 @@
 import { NET_REQUEST_ERR, TOKEN_NAME } from '@/config';
 import { Toast } from 'vant';
 import axios from 'axios'
+import tools from './tools'
 
 let t = null;
 
@@ -38,4 +39,4 @@ service.interceptors.response.use(
   }
 )
 
-export default service;
+export default tools.partialFn(tools.asyncFunc, service);

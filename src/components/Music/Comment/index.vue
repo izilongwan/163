@@ -137,9 +137,7 @@ export default {
     async getData ({ type, id, current }) {
       switch (type) {
         case 'song':
-          const [err, result] = await tools.asyncFunc(
-            () => songMusicComment({ id, offset: current })
-          );
+          const [err, result] = await songMusicComment({ id, offset: current });
 
           if (err) {
             return;

@@ -11,7 +11,6 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
 import HistoryItem from './Sub';
 import tools from 'utils/tools'
 

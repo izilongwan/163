@@ -43,9 +43,7 @@ export default {
     async getData () {
       this.isLoadingShow = true;
 
-      const [err, result] = await tools.asyncFunc(
-        toplistDetailGet
-      );
+      const [err, result] = await toplistDetailGet();
 
       if (err) {
         return;

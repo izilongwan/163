@@ -27,7 +27,8 @@ export default {
   },
 
   props: {
-    music: Object
+    music: Object,
+    show: Boolean,
   },
 
   data () {
@@ -36,41 +37,71 @@ export default {
       prevId: 0,
       lyric: '',
       isLoadingShow: false,
+      cache: {}
     }
   },
 
   methods: {
-    async handleMusicLyric () {
+    async getLyric(id) {
+      this.isLoadingShow = true;
 
-      if (this.lyricShow) {
+      if (id && id !== this.prevId) {
+        const [err, ret] = await songLyricGet(id);
+
+        this.isLoadingShow = false;
+
+        if (err) {
+          return;
+        }
+
+        const { nolyric, lrc = {} } = ret;
+
+        this.prevId = id;
+
+        if (!nolyric) {
+          const data = tools.formatLyric(lrc.lyric);
+          this.lyric = data;
+          this.setCache(id, data);
+        }
+        else {
+          this.lyric = '';
+        }
+      }
+
+      this.isLoadingShow = false;
+    },
+
+    handleMusicLyric () {
+
+      if (this.lyricShow && this.show) {
         const id = this.music.id;
 
-        this.isLoadingShow = true;
+        const data = this.getCache(id);
 
-        if (id && id !== this.prevId) {
-          const [err, ret] = await tools.asyncFunc(
-            () => songLyricGet(id)
-          );
-
-          this.isLoadingShow = false;
-
-          if (err) {
-            return;
-          }
-
-          const { nolyric, lrc = {} } = ret;
-
-          this.prevId = id;
-          this.lyric = nolyric ? '' : tools.formatLyric(lrc.lyric);
-        }
+        data
+          ? this.lyric = data
+          : this.getLyric(id);
         return;
       }
 
       this.lyric =  '';
+    },
+
+    setCache(id, data) {
+      if (!this.cache[id]) {
+        this.cache[id] = data;
+      }
+    },
+
+    getCache(id) {
+      if (this.cache[id]) {
+        return this.cache[id];
+      }
     }
   },
 
   watch: {
+    show: 'handleMusicLyric',
     lyricShow: 'handleMusicLyric',
     'music.id': 'handleMusicLyric'
   }

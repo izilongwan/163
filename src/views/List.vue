@@ -82,9 +82,7 @@ export default {
     async getData ({ type, id }) {
       switch (type) {
         case 'play':
-          const [err, data] = await tools.asyncFunc(
-            () => playlistDetailGet(id)
-          )
+          const [err, data] = await playlistDetailGet(id);
 
           if (err) {
             return;
@@ -95,9 +93,7 @@ export default {
           this.formatPlaylist(playlist);
           break;
         case 'singer':
-          const [err1, data1] = await tools.asyncFunc(
-            () => singerListDetailGet(id)
-          )
+          const [err1, data1] = await singerListDetailGet(id);
 
           if (err1) {
             return;

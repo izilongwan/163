@@ -7,11 +7,17 @@ export default {
 
       return ret
         ? [null, ret.data]
-        : [ret];
+        : [true];
 
     } catch (err) {
       return [err, null];
     }
+  },
+
+  partialFn(asyncFn, fn) {
+    return async (args) => {
+      return asyncFn(() => fn(args));
+    };
   },
 
   findItem (tar, className = 'item') {

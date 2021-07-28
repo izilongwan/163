@@ -13,7 +13,6 @@
 </template>
 
 <script>
-import tools from 'utils/tools';
 import Scroll from 'components/Sub/Scroll'
 import SearchHot from './Hot';
 import SearchResult from './Result';
@@ -45,7 +44,7 @@ export default {
 
   methods: {
     async getSearchHot () {
-      const [err, result] = await tools.asyncFunc(searchHotGet);
+      const [err, result] = await searchHotGet();
 
       if (err) {
         return;
