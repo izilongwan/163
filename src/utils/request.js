@@ -34,7 +34,6 @@ service.interceptors.response.use(
 
     t = setTimeout(() => Toast.fail(msg),10);
 
-
     Promise.reject(err.response.data);
   }
 )

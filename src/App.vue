@@ -15,7 +15,6 @@ import Music from 'views/Music'
 import { TOKEN_NAME } from '@/config'
 import { musicCollectionGet } from 'api/collection'
 import { mapState, mapActions } from 'vuex'
-import { SERVER_ERROR } from '@/config'
 
 export default {
   name: 'App',
